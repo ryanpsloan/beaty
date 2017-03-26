@@ -268,5 +268,44 @@ class Job
 
     }
 
+    public static function getAllJobs(&$mysqli){
+        if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
+            throw(new mysqli_sql_exception("Input is not a valid mysqli object"));
+        }
+
+        $query = "SELECT Id, jobId, description, bricklayerRate, foremanRate, laborRate, operatorRate FROM job ORDER BY jobId ASC";
+        $statement = $mysqli->prepare($query);
+        if($statement === false){
+            throw(new mysqli_sql_exception("Unable to prepare statement"));
+        }
+
+        if($statement->execute() === false){
+            throw(new mysqli_sql_exception("Unable to execute mysqli statement"));
+        }
+
+        $result = $statement->get_result();
+
+        if($result === false){
+            throw(new mysqli_sql_exception("Unable to get result set"));
+        }
+
+        $jobArray = array();
+        while(($row = $result->fetch_assoc()) !== null){
+
+            try{
+                $jobArray[] = new Job($row['jobId'], $row['jobCode'], $row['jobDescription']);
+            }catch(Exception $exception){
+                throw(new mysqli_sql_exception("Unable to convert row to Job Object", 0, $exception));
+            }
+
+
+        }
+        if($result->num_rows === 0){
+            return null;
+        }else{
+            return $jobArray;
+        }
+    }
+
 }
 ?>

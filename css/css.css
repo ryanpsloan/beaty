@@ -1,0 +1,67 @@
+body{
+    background-color: lightblue;
+}
+
+main{
+    text-align: center;
+}
+
+.row{
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+ul{
+    list-style: none;
+}
+
+table{
+    text-align: center;
+    background-color: whitesmoke;
+    margin-top: 15px;
+}
+
+table td{
+    padding: 5px;
+}
+
+.center{
+    width: 600px;
+    margin: 0 auto;
+
+}
+
+div{
+    text-align:center;
+}
+
+#viewEmployeesTable, #viewJobsTable{
+    margin: 0 auto;
+
+}
+
+#viewEmployeesTable, #viewEmployeesTable tr, #viewEmployeesTable td, #viewJobsTable, #viewJobsTable tr, #viewJobsTable td{
+    border: 2px solid lightgrey;
+}
+
+#fileUpload{
+    margin: 5px auto;
+}
+
+hr{
+    border-color: blue;
+}
+
+#indexUL{
+    border: 1px darkgrey solid;
+}
+
+#indexUL li{
+    padding: 3px;
+}
+
+#notice{
+    background-color: azure;
+}
