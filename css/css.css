@@ -7,7 +7,7 @@ main{
 }
 
 .row{
-    width: 600px;
+    width: 900px;
     margin: 0 auto;
     text-align: center;
 
@@ -19,7 +19,6 @@ ul{
 
 table{
     text-align: center;
-    background-color: whitesmoke;
     margin-top: 15px;
 }
 
@@ -64,4 +63,10 @@ hr{
 
 #notice{
     background-color: azure;
+}
+label{
+    padding-right: 10px;
+}
+td{
+    width: 2em;
 }

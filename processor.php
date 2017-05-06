@@ -99,9 +99,6 @@ if(isset($_FILES['file'])){
         }
 
         $fileData = array();
-        //read first line headers
-        $headers = fgets($handle);
-
         //read the data in line by line
         while (!feof($handle)) {
             $line_of_data = fgets($handle); //gets data from file one line at a time
@@ -114,19 +111,140 @@ if(isset($_FILES['file'])){
         fclose($handle);
         //var_dump($fileData);
         $mysqli = MysqliConfiguration::getMysqli();
+        $data = $fileData;
+        $benecoArr = $perdiemArr = array();
+        foreach($data as $key => $line){
+            if(count($line) === 29){
+                $jobId = trim($line[3]);
+                $job = Job::getJobByJobId($mysqli, $jobId);
+                $description = trim($line[28]);
+                if($job !== null){
+                    $beneco = $job->getBeneco();
+                    $perdiem = $job->getPerdiem();
+                    if($beneco){
+                        $isLine = false;
+                        $rate = '';
+                        switch($description) {
+                            case 'Bricklayer':
+                                $rate = $job->getBricklayerMP();
+                                $isLine = true;
+                                break;
+                            case 'Foreman':
+                                $rate = $job->getForemanMP();
+                                $isLine = true;
+                                break;
+                            case 'LB III':
+                                $rate = $job->getLaborMP();
+                                $isLine = true;
+                                break;
+                            case 'Fork Lift Op II':
+                                $rate = $job->getOperatorMP();
+                                $isLine = true;
+                                break;
+                            default:
+                        }
+                        if($isLine) {
+                            $benecoArr[$line[0]][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', 'P', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                        }
+                    }elseif($perdiem){
+                        $isLine = false;
+                        $rate = '';
+
+                        switch($description) {
+                            case 'Bricklayer':
+                                $rate = $job->getBricklayerMP();
+                                $isLine = true;
+                                break;
+                            case 'Foreman':
+                                $rate = $job->getForemanMP();
+                                $isLine = true;
+                                break;
+                            case 'LB III':
+                                $rate = $job->getLaborMP();
+                                $isLine = true;
+                                break;
+                            case 'Fork Lift Op II':
+                                $rate = $job->getOperatorMP();
+                                $isLine = true;
+                                break;
+                            default:
+                        }
+                        if($isLine) {
+                            $rate = (float)$rate;
+                            $hours = (float)$line[8];
+                            $amount = $rate * $hours;
+                            $roundedAmount = round($amount, 3);
+                            $jobId = $jobId . "NC";
+                            $perdiemArr[$line[0]][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                        }
+                    }
+                }
+            }
+        }
+        $apprenticeArr = array();
+        foreach($data as $key => $line){
+            if(count($line) === 29) {
+                $jobId = trim($line[3]);
+                $job = Job::getJobByJobId($mysqli, $jobId);
+                $description = trim($line[28]);
+                if($job !== null){
+                    $isLine = false;
+                    $rate = '';
+                    switch($description) {
+                        case 'Bricklayer':
+                            $rate = $job->getBricklayerM1();
+                            $isLine = true;
+                            break;
+                        case 'LB III':
+                            $rate = $job->getLaborM1();
+                            $isLine = true;
+                            break;
+                        case 'Fork Lift Op II':
+                            $rate = $job->getOperatorM1();
+                            $isLine = true;
+                            break;
+                        default:
+                    }
+                    if($isLine && $rate !== '0.00') {
+                        $apprenticeArr[$line[0]][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                    }
+                }
+            }
+        }
+        //var_dump($benecoArr, $perdiemArr, $apprenticeArr);
+        $output = array();
+        foreach($benecoArr as $arr){
+            $hoursSum = array_sum(array_column($arr, 8));
+            $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string) $hoursSum, $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+        }
+
+        foreach($perdiemArr as $arr){
+            $amountSum = array_sum(array_column($arr, 14));
+            $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', (string) $amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+        }
+
+        foreach($apprenticeArr as $arr){
+            $sumHours = array_sum(array_column($arr, 8));
+            $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string) $sumHours, $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+        }
+
+        //var_dump($output);
 
         foreach($fileData as $key => &$line){
-
-            if(count($line) === 29) {
-                $job = Job::getJobByJobId($mysqli, trim($line[3]));
-                if (trim($line[28]) === "BL" || $line[28] === "bl") {
-                    $line[7] = $job->getBricklayerRate();
-                } elseif ($line[28] === "BF" || $line[28] === "bf") {
-                    $line[7] = $job->getForemanRate();
-                } elseif ($line[28] === "L" || $line[28] === "l") {
-                    $line[7] = $job->getLaborRate();
-                } elseif ($line[28] === "LO" || $line[28] === "lo") {
-                    $line[7] = $job->getOperatorRate();
+           if(count($line) === 29) {
+                $jobId = trim($line[3]);
+                $job = Job::getJobByJobId($mysqli, $jobId);
+                $description = trim($line[28]);
+                if($job !== null){
+                    if($description === "Bricklayer") {
+                        $line[7] = $job->getBricklayerRate();
+                    } elseif ($description === "Foreman") {
+                        $line[7] = $job->getForemanRate();
+                    } elseif ($description === "LB III") {
+                        $line[7] = $job->getLaborRate();
+                    } elseif ($description === "Fork Lift Op II") {
+                        $line[7] = $job->getOperatorRate();
+                    }
                 }
             }
         }
@@ -147,6 +265,9 @@ if(isset($_FILES['file'])){
         foreach($fileData as $line){
             fputcsv($handle, $line);
         }
+        foreach($output as $line){
+            fputcsv($handle, $line);
+        }
 
         fclose($handle);
         $_SESSION['output'] = "Successfully created File.";
@@ -156,6 +277,7 @@ if(isset($_FILES['file'])){
     } catch (Exception $e) {
         $_SESSION['output'] = $e->getMessage();
         header('Location: format.php?');
+
     }
 }else{
     $_SESSION['output'] = "<p>No File Was Selected</p>";
