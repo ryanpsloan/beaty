@@ -144,7 +144,7 @@ if(isset($_FILES['file'])){
                             default:
                         }
                         if($isLine) {
-                            $benecoArr[$line[0]][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', 'P', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                            $benecoArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', 'P', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }elseif($perdiem){
                         $isLine = false;
@@ -211,15 +211,15 @@ if(isset($_FILES['file'])){
                 }
             }
         }
-        //var_dump($benecoArr, $perdiemArr, $apprenticeArr);
+        //var_dump('BENECO',$benecoArr, $perdiemArr, $apprenticeArr);
         $output = array();
-        foreach($benecoArr as $key => $arr) {
+        foreach($benecoArr as $key => $array) {
             //var_dump($key);
-            //foreach ($array as $k => $arr){
+            foreach ($array as $k => $arr){
                 //var_dump($arr);
                 $hoursSum = array_sum(array_column($arr, 8));
                 $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$hoursSum, $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
-            //}
+            }
         }
 
         foreach($perdiemArr as $key => $array){
