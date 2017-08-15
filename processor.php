@@ -174,8 +174,10 @@ if(isset($_FILES['file'])){
                             $hours = (float)$line[8];
                             $amount = $rate * $hours;
                             $roundedAmount = round($amount, 3);
-                            $jobId = $jobId . "NC";
-                            $perdiemArr[$line[0]][$line[2]][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                            if($jobId != '03-1622') {
+                                $jobId = $jobId . "NC";
+                            }
+                            $perdiemArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }
                 }
@@ -206,38 +208,39 @@ if(isset($_FILES['file'])){
                         default:
                     }
                     if($isLine && $rate !== '0.00') {
-                        $apprenticeArr[$line[0]][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                        $apprenticeArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                     }
                 }
             }
         }
-        //var_dump('BENECO',$benecoArr, $perdiemArr, $apprenticeArr);
+        //var_dump('BENECO',$benecoArr, 'PERDIEM', $perdiemArr, 'APPRENTICE', $apprenticeArr);
         $output = array();
         foreach($benecoArr as $key => $array) {
             //var_dump($key);
             foreach ($array as $k => $arr){
-                //var_dump($arr);
+                //var_dump($arr, count($arr));
+                //var_dump("**",$arr[0][9], $arr[0][10], $arr[0][11]);
                 $hoursSum = array_sum(array_column($arr, 8));
-                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$hoursSum, $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$hoursSum, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
             }
         }
 
         foreach($perdiemArr as $key => $array){
-            //var_dump($array);
+            //var_dump($key, $array);
             foreach($array as $k => $arr){
-                //var_dump($arr);
+                //var_dump($k, $arr);
                 $amountSum = array_sum(array_column($arr, 14));
-                $output[] = array($arr[0][0], $arr[0][1], $k, $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', (string) $amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                $output[] = array($arr[0][0], $arr[0][1], $k, $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string) $amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
             }
         }
 
-        foreach($apprenticeArr as $arr){
+        foreach($apprenticeArr as $array){
             //var_dump($array);
-            //foreach($array as $k => $arr){
+            foreach($array as $k => $arr){
                 //var_dump($arr);
                 $sumHours = array_sum(array_column($arr, 8));
-                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string) $sumHours, $arr[0][9], $arr[0][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
-            //}
+                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string) $sumHours, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+            }
         }
 
         //var_dump("OUTPUT", $output);
