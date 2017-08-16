@@ -230,7 +230,7 @@ if(isset($_FILES['file'])){
             foreach($array as $k => $arr){
                 //var_dump($k, $arr);
                 $amountSum = array_sum(array_column($arr, 14));
-                $output[] = array($arr[0][0], $arr[0][1], $k, $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string) $amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string) $amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
             }
         }
 
