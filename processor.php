@@ -149,6 +149,7 @@ if(isset($_FILES['file'])){
                     }elseif($perdiem){
                         $isLine = false;
                         $rate = '';
+                        $blockId = $line[2];
 
                         switch($description) {
                             case 'Bricklayer':
@@ -177,7 +178,7 @@ if(isset($_FILES['file'])){
                             if($jobId != '03-1622') {
                                 $jobId = $jobId . "NC";
                             }
-                            $perdiemArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                            $perdiemArr[$line[0]][$jobId][$blockId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }
                 }
@@ -213,7 +214,10 @@ if(isset($_FILES['file'])){
                 }
             }
         }
-        //var_dump('BENECO',$benecoArr, 'PERDIEM', $perdiemArr, 'APPRENTICE', $apprenticeArr);
+        //var_dump('BENECO',$benecoArr);
+        //var_dump('PERDIEM', $perdiemArr);
+        //var_dump('APPRENTICE', $apprenticeArr);
+
         $output = array();
         foreach($benecoArr as $key => $array) {
             //var_dump($key);
@@ -225,14 +229,19 @@ if(isset($_FILES['file'])){
             }
         }
 
-        foreach($perdiemArr as $key => $array){
-            //var_dump($key, $array);
-            foreach($array as $k => $arr){
-                //var_dump($k, $arr);
-                $amountSum = array_sum(array_column($arr, 14));
-                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string) $amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+
+        foreach ($perdiemArr as $ee => $array) {
+            //var_dump($ee);
+            foreach ($array as $jobId => $a) {
+                //var_dump($jobId);
+                foreach($a as $block => $arr){
+                    //var_dump($block, $arr);
+                    $amountSum = array_sum(array_column($arr, 14));
+                    $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string)$amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                }
             }
         }
+
 
         foreach($apprenticeArr as $array){
             //var_dump($array);
