@@ -119,12 +119,14 @@ if(isset($_FILES['file'])){
                 $jobId = trim($line[3]);
                 $job = Job::getJobByJobId($mysqli, $jobId);
                 $description = trim($line[28]);
+                $dept = $line[2];
                 if($job !== null){
                     $beneco = $job->getBeneco();
                     $perdiem = $job->getPerdiem();
                     if($beneco){
                         $isLine = false;
                         $rate = '';
+
                         switch($description) {
                             case 'Bricklayer':
                                 $rate = $job->getBricklayerMP();
@@ -145,12 +147,11 @@ if(isset($_FILES['file'])){
                             default:
                         }
                         if($isLine) {
-                            $benecoArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', 'P', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                            $benecoArr[$line[0]][$jobId][$dept][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', 'P', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }elseif($perdiem){
                         $isLine = false;
                         $rate = '';
-                        $blockId = $line[2];
 
                         switch($description) {
                             case 'Bricklayer':
@@ -179,7 +180,7 @@ if(isset($_FILES['file'])){
                             if($jobId != '03-1622') {
                                 $jobId = $jobId . "NC";
                             }
-                            $perdiemArr[$line[0]][$jobId][$blockId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                            $perdiemArr[$line[0]][$jobId][$dept][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }
                 }
@@ -191,6 +192,7 @@ if(isset($_FILES['file'])){
                 $jobId = trim($line[3]);
                 $job = Job::getJobByJobId($mysqli, $jobId);
                 $description = trim($line[28]);
+                $dept = $line[2];
                 if($job !== null){
                     $isLine = false;
                     $rate = '';
@@ -210,7 +212,7 @@ if(isset($_FILES['file'])){
                         default:
                     }
                     if($isLine && $rate !== '0.00') {
-                        $apprenticeArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                        $apprenticeArr[$line[0]][$jobId][$dept][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                     }
                 }
             }
