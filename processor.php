@@ -113,6 +113,7 @@ if(isset($_FILES['file'])){
         $mysqli = MysqliConfiguration::getMysqli();
         $data = $fileData;
         $benecoArr = $perdiemArr = array();
+
         foreach($data as $key => $line){
             if(count($line) === 29){
                 $jobId = trim($line[3]);
@@ -219,13 +220,15 @@ if(isset($_FILES['file'])){
         //var_dump('APPRENTICE', $apprenticeArr);
 
         $output = array();
-        foreach($benecoArr as $key => $array) {
-            //var_dump($key);
-            foreach ($array as $k => $arr){
+        foreach($benecoArr as $ee => $array) {
+            //var_dump($ee);
+            foreach ($array as $jobId => $a){
                 //var_dump($arr, count($arr));
                 //var_dump("**",$arr[0][9], $arr[0][10], $arr[0][11]);
-                $hoursSum = array_sum(array_column($arr, 8));
-                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$hoursSum, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                foreach($a as $dept => $arr) {
+                    $hoursSum = array_sum(array_column($arr, 8));
+                    $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$hoursSum, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                }
             }
         }
 
@@ -234,8 +237,8 @@ if(isset($_FILES['file'])){
             //var_dump($ee);
             foreach ($array as $jobId => $a) {
                 //var_dump($jobId);
-                foreach($a as $block => $arr){
-                    //var_dump($block, $arr);
+                foreach($a as $dept => $arr){
+                    //var_dump($dept, $arr);
                     $amountSum = array_sum(array_column($arr, 14));
                     $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string)$amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
                 }
@@ -243,12 +246,14 @@ if(isset($_FILES['file'])){
         }
 
 
-        foreach($apprenticeArr as $array){
+        foreach($apprenticeArr as $ee => $array){
             //var_dump($array);
-            foreach($array as $k => $arr){
-                //var_dump($arr);
-                $sumHours = array_sum(array_column($arr, 8));
-                $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string) $sumHours, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+            foreach($array as $jobId => $a){
+                foreach($a as $dept => $arr) {
+                    //var_dump($arr);
+                    $sumHours = array_sum(array_column($arr, 8));
+                    $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$sumHours, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
+                }
             }
         }
 
