@@ -192,7 +192,7 @@ if(isset($_FILES['file'])){
                 $jobId = trim($line[3]);
                 $job = Job::getJobByJobId($mysqli, $jobId);
                 $description = trim($line[28]);
-                $dept = trim($line[2]);
+
                 if($job !== null){
                     $isLine = false;
                     $rate = '';
@@ -212,7 +212,7 @@ if(isset($_FILES['file'])){
                         default:
                     }
                     if($isLine && $rate !== '0.00') {
-                        $apprenticeArr[$line[0]][$jobId][$dept][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
+                        $apprenticeArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                     }
                 }
             }
@@ -251,13 +251,11 @@ if(isset($_FILES['file'])){
 
         foreach($apprenticeArr as $ee => $array){
             //var_dump($array);
-            foreach($array as $jobId => $a){
-
-                foreach($a as $dept => $arr) {
+            foreach($array as $jobId => $arr){
                     //var_dump($arr);
                     $sumHours = array_sum(array_column($arr, 8));
                     $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$sumHours, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
-                }
+
             }
         }
 
