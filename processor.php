@@ -177,9 +177,9 @@ if(isset($_FILES['file'])){
                             $hours = (float)$line[8];
                             $amount = $rate * $hours;
                             $roundedAmount = round($amount, 3);
-                            if($jobId != '03-1622') {
+                            /*if($jobId != '03-1622') {
                                 $jobId = $jobId . "NC";
-                            }
+                            }*/
                             $perdiemArr[$line[0]][$jobId][$dept][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'E', '21', (string)$rate, '', $line[9], $line[10], $line[11], $line[12], '', (string) $roundedAmount, '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }

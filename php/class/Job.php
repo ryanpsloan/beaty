@@ -24,8 +24,10 @@ class Job
     private $operatorM1;
     private $beneco;
     private $perdiem;
+    private $landscaperRate;
+    private $landscaperMP;
 
-    public function __construct($newId, $newJobId, $newDesc, $newBLRate, $newBLMP, $newBLM1, $newFMRate, $newFMMP, $newLaborRate, $newLaborMP, $newLaborM1, $newOPRate, $newOPMP, $newOPM1, $newBeneco, $newPerdiem)
+    public function __construct($newId, $newJobId, $newDesc, $newBLRate, $newBLMP, $newBLM1, $newFMRate, $newFMMP, $newLaborRate, $newLaborMP, $newLaborM1, $newOPRate, $newOPMP, $newOPM1, $newBeneco, $newPerdiem, $newLandscaperRate, $newLandscaperMP)
     {
         try{
             $this->setId($newId);
@@ -44,6 +46,8 @@ class Job
             $this->setOperatorM1($newOPM1);
             $this->setBeneco($newBeneco);
             $this->setPerdiem($newPerdiem);
+            $this->setLandscaperRate($newLandscaperRate);
+            $this->setLandscaperMP($newLandscaperMP);
 
         }catch(UnexpectedValueException $unexpectedValue){
             throw(new UnexpectedValueException($unexpectedValue->getMessage(). ": Unable to Construct Job", 0, $unexpectedValue));
@@ -131,6 +135,16 @@ class Job
     public function getPerdiem()
     {
         return $this->perdiem;
+    }
+
+    public function getLandscaperRate()
+    {
+        return $this->landscaperRate;
+    }
+
+    public function getLandscaperMP()
+    {
+        return $this->landscaperMP;
     }
 
     public function setId($id)
@@ -299,6 +313,26 @@ class Job
         }
     }
 
+    public function setLandscaperRate($landscaperRate)
+    {
+        $landscaperRate = trim($landscaperRate);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($landscaperRate, FILTER_VALIDATE_REGEXP, $filterOptions)=== false){
+            throw(new RangeException("Landscaper Rate $landscaperRate must be formatted as 0.00 or 00.00 using only numbers"));
+        }
+        $this->landscaperRate = $landscaperRate;
+    }
+
+    public function setLandscaperMP($landscaperMP)
+    {
+        $landscaperMP = trim($landscaperMP);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($landscaperMP, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Landscaper MP $landscaperMP must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->landscaperMP = $landscaperMP;
+    }
+
     public function insert(&$mysqli){
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
             throw(new mysqli_sql_exception("input is not a mysqli object"));
@@ -308,13 +342,13 @@ class Job
             throw(new mysqli_sql_exception("not a new Job"));
         }
 
-        $query = "INSERT INTO job(jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO job(jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
 
-        $wasClean = $statement->bind_param("sssssssssssssii",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem);
+        $wasClean = $statement->bind_param("sssssssssssssiiss",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->landscaperRate, $this->landscaperMP);
         if($wasClean === false){
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
@@ -360,13 +394,13 @@ class Job
             throw(new mysqli_sql_exception("Unable to update a Job that does not exist"));
         }
 
-        $query = "UPDATE job SET jobId = ?, description = ?, bricklayerRate = ?, bricklayerMP = ?, bricklayerM1 = ?, foremanRate = ?, foremanMP = ?, laborRate = ?, laborMP = ?, laborM1 = ?, operatorRate = ?, operatorMP = ?, operatorM1 = ?, beneco = ?, perdiem = ? WHERE id = ?";
+        $query = "UPDATE job SET jobId = ?, description = ?, bricklayerRate = ?, bricklayerMP = ?, bricklayerM1 = ?, foremanRate = ?, foremanMP = ?, laborRate = ?, laborMP = ?, laborM1 = ?, operatorRate = ?, operatorMP = ?, operatorM1 = ?, beneco = ?, perdiem = ?, landscaperRate = ?, landscaperMP = ? WHERE id = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
 
-        $wasClean = $statement->bind_param("sssssssssssssiii",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->id);
+        $wasClean = $statement->bind_param("sssssssssssssiissi",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->landscaperRate, $this->landscaperMP, $this->id);
         if($wasClean === false){
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
@@ -384,7 +418,7 @@ class Job
         $jobId = trim($jobId);
         $jobId = filter_var($jobId, FILTER_SANITIZE_STRING);
 
-        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem FROM job WHERE jobId = ?";
+        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP FROM job WHERE jobId = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -407,7 +441,7 @@ class Job
         $row = $result->fetch_assoc();
         if($row !== null){
             try{
-                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"]);
+                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"]);
             }catch(Exception $ex){
                 throw(new mysqli_sql_exception("Unable to convert row to Job", 0, $ex));
             }
@@ -434,7 +468,7 @@ class Job
             throw(new RangeException("Id $id is not positive"));
         }
 
-        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem FROM job WHERE id = ?";
+        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP FROM job WHERE id = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -457,7 +491,7 @@ class Job
         $row = $result->fetch_assoc();
         if($row !== null){
             try{
-                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"]);
+                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"]);
             }catch(Exception $ex){
                 throw(new mysqli_sql_exception("Unable to convert row to Job", 0, $ex));
             }
@@ -475,7 +509,7 @@ class Job
             throw(new mysqli_sql_exception("Input is not a valid mysqli object"));
         }
 
-        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem FROM job ORDER BY jobId ASC";
+        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP FROM job ORDER BY jobId ASC";
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -495,7 +529,7 @@ class Job
         while(($row = $result->fetch_assoc()) !== null){
 
             try{
-                $jobArray[] = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"]);
+                $jobArray[] = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"]);
             }catch(Exception $exception){
                 throw(new mysqli_sql_exception("Unable to convert row to Job Object", 0, $exception));
             }

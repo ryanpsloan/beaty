@@ -37,6 +37,8 @@ session_start();
             var opM1 = $("input[id='opM11']");
             var beneco = $("input[id='beneco1']");
             var perdiem = $("input[id='perdiem1']");
+            var lsRate = $("input[id='lsRate1']");
+            var lsMP = $("input[id='lsMP1']");
             /*console.log(id);
             console.log(jobId);
             console.log(jobDesc);
@@ -44,6 +46,7 @@ session_start();
             console.log(frRate);
             console.log(lbRate);
             console.log(opRate);*/
+
 
             select.on('change',function(){
 
@@ -63,6 +66,8 @@ session_start();
                 var oM1 = $(this).find(':selected').data('opm1');
                 var ben = $(this).find(':selected').data('beneco');
                 var per = $(this).find(':selected').data('perdiem');
+                var landRate = $(this).find(':selected').data('lsRate');
+                var landMP = $(this).find(':selected').data('lsMP');
                 /*console.log(data);
                 console.log(jId);
                 console.log(desc);
@@ -84,6 +89,8 @@ session_start();
                 opRate.val(oRate);
                 opMP.val(oMP);
                 opM1.val(oM1);
+                lsRate.val(landRate);
+                lsMP.val(landMP);
                 console.log(ben);
                 console.log(per);
                 if(ben === 1){
@@ -98,9 +105,6 @@ session_start();
                     perdiem.prop('checked', false);
                 }
                 $("input[id='idhidden']").val(data);
-
-
-
             });
 
             selectB.on('change', function(){
@@ -109,11 +113,6 @@ session_start();
                 $("input[id='idhiddenB']").val(value);
 
             });
-
-
-
-
-
         });
     </script>
 </head>
