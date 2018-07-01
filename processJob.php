@@ -19,11 +19,13 @@ if(isset($_POST['submit'])) {
     $opRate = $_POST['opRate'];
     $opMP = $_POST['opMP'];
     $opM1 = $_POST['opM1'];
+    $lsRate = $_POST['lsRate'];
+    $lsMP = $_POST['lsMP'];
     $beneco = isset($_POST['beneco']) ? 1 : 0;
     $perdiem = isset($_POST['perdiem']) ? 1 : 0;
 
     try {
-        $newJob = new Job(null, $jobId, $desc, $blRate, $blMP, $blM1, $frRate, $frMP, $lbRate, $lbMP, $lbM1, $opRate, $opMP, $opM1, $beneco, $perdiem);
+        $newJob = new Job(null, $jobId, $desc, $blRate, $blMP, $blM1, $frRate, $frMP, $lbRate, $lbMP, $lbM1, $opRate, $opMP, $opM1, $beneco, $perdiem, $lsRate, $lsMP);
         $newJob->insert($mysqli);
         $_SESSION['output'] = $jobId . " / ". $desc ." has been inserted";
     }catch(Exception $e){
@@ -47,6 +49,8 @@ else if(isset($_POST['submit1'])){
     $opRate = $_POST['opRate1'];
     $opMP = $_POST['opMP1'];
     $opM1 = $_POST['opM11'];
+    $lsRate = $_POST['lsRate1'];
+    $lsMP = $_POST['lsMP1'];
     $beneco = isset($_POST['beneco1']) ? 1 : 0;
     $perdiem = isset($_POST['perdiem1']) ? 1 : 0;
     try {
@@ -65,6 +69,8 @@ else if(isset($_POST['submit1'])){
         $job->setOperatorRate($opRate);
         $job->setOperatorMP($opMP);
         $job->setOperatorM1($opM1);
+        $job->setLandscaperRate($lsRate);
+        $job->setLandscaperMP($lsMP);
         $job->setBeneco($beneco);
         $job->setPerdiem($perdiem);
 

@@ -226,6 +226,12 @@ session_start();
                         <td><label for="opM1">Operator M1</label></td><td><input type="text" id="opM1" name="opM1" required></td>
                     </tr>
                     <tr>
+                        <td><label for="lsRate">Landscaper Rate</label></td><td><input type="text" id="lsRate" name="lsRate"</td>
+                    </tr>
+                    <tr>
+                        <td><label for="lsMP">Landscaper MP</label></td><td><input type="text" id="lsMP" name="lsMP"</td>
+                    </tr>
+                    <tr>
                         <td><label for="beneco">Beneco</label></td><td><input type="checkbox" id="beneco" name="beneco"></td>
                     </tr>
                     <tr>
@@ -264,10 +270,12 @@ session_start();
                                 $opM1 = $object->getOperatorM1();
                                 $beneco = $object->getBeneco();
                                 $perdiem = $object->getPerdiem();
+                                $lsRate = $object->getLandscaperRate();
+                                $lsMP = $object->getLandscaperMP();
 
                                 echo <<<HTML
 
-                        <option data-id="$id" data-job="$jobId" data-desc="$jobDesc" data-blRate="$blRate" data-blMP="$blMP" data-blM1="$blM1" data-frRate="$frRate" data-frMP="$frMP" data-lbRate="$lbRate" data-lbMP="$lbMP" data-lbM1="$lbM1" data-opRate="$opRate" data-opMP="$opMP" data-opM1="$opM1" data-beneco="$beneco" data-perdiem="$perdiem" value="$jobId">$jobId / $jobDesc</option>
+                        <option data-id="$id" data-job="$jobId" data-desc="$jobDesc" data-blRate="$blRate" data-blMP="$blMP" data-blM1="$blM1" data-frRate="$frRate" data-frMP="$frMP" data-lbRate="$lbRate" data-lbMP="$lbMP" data-lbM1="$lbM1" data-opRate="$opRate" data-opMP="$opMP" data-opM1="$opM1" data-beneco="$beneco" data-perdiem="$perdiem" data-lsRate="$lsRate" data-lsMP="$lsMP" value="$jobId">$jobId / $jobDesc</option>
 
 HTML;
 
@@ -304,6 +312,10 @@ HTML;
                         <td><label for="opRate1">Operator Rate</label><input type="text" id="opRate1" name="opRate1" required></td>
                         <td><label for="opMP1">Operator MP</label><input type="text" id="opMP1" name="opMP1" required></td>
                         <td><label for="opM11">Operator M1</label><input type="text" id="opM11" name="opM11" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="lsRate1">Landscaper Rate</label><input type="text" id="lsRate1" name="lsRate1" required></td>
+                        <td><label for="lsMP1">Landscaper MP</label><input type="text" id="lsMP1" name="lsMP1" required></td>
                     </tr>
                     <tr>
                         <td><label for="beneco1">Beneco</label><input type="checkbox" id="beneco1" name="beneco1"></td>
@@ -356,7 +368,7 @@ HTML;
                 $mysqli = MysqliConfiguration::getMysqli();
                 $jobs = Job::getAllJobs($mysqli);
                 if($jobs !== null) {
-                    echo "<tr><td>Database Id</td><td>Job Id</td><td>Description</td><td>Bricklayer Rate</td><td>Bricklayer MP</td><td>Bricklayer M1</td><td>Foreman Rate</td><td>Foreman MP</td><td>Labor Rate</td><td>Labor MP</td><td>Labor M1</td><td>Operator Rate</td><td>Operator MP</td><td>Operator M1</td><td>Beneco</td><td>Perdiem</td></tr>";
+                    echo "<tr><td>Database Id</td><td>Job Id</td><td>Description</td><td>Bricklayer Rate</td><td>Bricklayer MP</td><td>Bricklayer M1</td><td>Foreman Rate</td><td>Foreman MP</td><td>Labor Rate</td><td>Labor MP</td><td>Labor M1</td><td>Operator Rate</td><td>Operator MP</td><td>Operator M1</td><td>Landscaper Rate</td><td>Landscaper MP</td><td>Beneco</td><td>Perdiem</td></tr>";
                     foreach ($jobs as $object) {
                         $id = $object->getId();
                         $jobId = $object->getJobId();
@@ -374,6 +386,8 @@ HTML;
                         $opM1 = $object->getOperatorM1();
                         $beneco = $object->getBeneco();
                         $perdiem = $object->getPerdiem();
+                        $lsRate = $object->getLandscaperRate();
+                        $lsMP = $object->getLandscaperMP();
                         if($beneco === 1){
                             $beneco = 'YES';
                         }else{
@@ -386,7 +400,7 @@ HTML;
                         }
                         echo <<<HTML
 
-                    <tr><td>$id</td><td>$jobId</td><td>$jobDesc</td><td>$blRate</td><td>$blMP</td><td>$blM1</td><td>$frRate</td><td>$frMP</td><td>$lbRate</td><td>$lbMP</td><td>$lbM1</td><td>$opRate</td><td>$opMP</td><td>$opM1</td><td>$beneco</td><td>$perdiem</td></tr>
+                    <tr><td>$id</td><td>$jobId</td><td>$jobDesc</td><td>$blRate</td><td>$blMP</td><td>$blM1</td><td>$frRate</td><td>$frMP</td><td>$lbRate</td><td>$lbMP</td><td>$lbM1</td><td>$opRate</td><td>$opMP</td><td>$opM1</td><td>$lsRate</td><td>$lsMP</td><td>$beneco</td><td>$perdiem</td></tr>
 HTML;
 
                     }

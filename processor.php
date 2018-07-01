@@ -144,6 +144,10 @@ if(isset($_FILES['file'])){
                                 $rate = $job->getOperatorMP();
                                 $isLine = true;
                                 break;
+                            case 'Landscaper':
+                                $rate = $job->getLandscaperMP();
+                                $isLine = true;
+                                break;
                             default:
                         }
                         if($isLine) {
