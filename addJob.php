@@ -45,8 +45,9 @@ session_start();
             console.log(blRate);
             console.log(frRate);
             console.log(lbRate);
-            console.log(opRate);*/
-
+            console.log(opRate);
+            console.log(lsRate);
+            console.log(lsMP);*/
 
             select.on('change',function(){
 
@@ -66,8 +67,8 @@ session_start();
                 var oM1 = $(this).find(':selected').data('opm1');
                 var ben = $(this).find(':selected').data('beneco');
                 var per = $(this).find(':selected').data('perdiem');
-                var landRate = $(this).find(':selected').data('lsRate');
-                var landMP = $(this).find(':selected').data('lsMP');
+                var landRate = $(this).find(':selected').data('lsrate');
+                var landMP = $(this).find(':selected').data('lsmp');
                 /*console.log(data);
                 console.log(jId);
                 console.log(desc);
@@ -91,8 +92,8 @@ session_start();
                 opM1.val(oM1);
                 lsRate.val(landRate);
                 lsMP.val(landMP);
-                console.log(ben);
-                console.log(per);
+                //console.log(landRate);
+                //console.log(landMP);
                 if(ben === 1){
                     beneco.prop('checked', true);
                 }else{
@@ -226,10 +227,10 @@ session_start();
                         <td><label for="opM1">Operator M1</label></td><td><input type="text" id="opM1" name="opM1" required></td>
                     </tr>
                     <tr>
-                        <td><label for="lsRate">Landscaper Rate</label></td><td><input type="text" id="lsRate" name="lsRate"</td>
+                        <td><label for="lsRate">Landscaper Rate</label></td><td><input type="text" id="lsRate" name="lsRate" required></td>
                     </tr>
                     <tr>
-                        <td><label for="lsMP">Landscaper MP</label></td><td><input type="text" id="lsMP" name="lsMP"</td>
+                        <td><label for="lsMP">Landscaper MP</label></td><td><input type="text" id="lsMP" name="lsMP" required></td>
                     </tr>
                     <tr>
                         <td><label for="beneco">Beneco</label></td><td><input type="checkbox" id="beneco" name="beneco"></td>
@@ -272,14 +273,12 @@ session_start();
                                 $perdiem = $object->getPerdiem();
                                 $lsRate = $object->getLandscaperRate();
                                 $lsMP = $object->getLandscaperMP();
-
+                                //var_dump($lsRate, $lsMP);
                                 echo <<<HTML
 
                         <option data-id="$id" data-job="$jobId" data-desc="$jobDesc" data-blRate="$blRate" data-blMP="$blMP" data-blM1="$blM1" data-frRate="$frRate" data-frMP="$frMP" data-lbRate="$lbRate" data-lbMP="$lbMP" data-lbM1="$lbM1" data-opRate="$opRate" data-opMP="$opMP" data-opM1="$opM1" data-beneco="$beneco" data-perdiem="$perdiem" data-lsRate="$lsRate" data-lsMP="$lsMP" value="$jobId">$jobId / $jobDesc</option>
 
 HTML;
-
-
                             }
                         }
                     }catch(Exception $e){
