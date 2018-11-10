@@ -101,7 +101,7 @@ if(isset($_FILES['file'])){
         $fileData = array();
         //read the data in line by line
         while (!feof($handle)) {
-            $line_of_data = fgets($handle); //gets data from file one line at a time
+            $line_of_data = fgetcsv($handle, 1000000, ",", '"'); //gets data from file one line at a time
             $line_of_data = trim($line_of_data); //trims the data
             $fileData[] = explode(",", $line_of_data); //breaks the line up into pieces that the array can store
         }
@@ -227,12 +227,13 @@ if(isset($_FILES['file'])){
 
         $output = array();
         foreach($benecoArr as $ee => $array) {
-            //var_dump($ee);
+            //$ee == 'PE5875' ? var_dump($ee, $array) : '' ;
             foreach ($array as $jobId => $a){
-
+                //$ee == 'PE5875' ? var_dump($jobId, $a) : '';
                 foreach($a as $dept => $arr) {
-                    //var_dump($arr, count($arr));
-                    //var_dump("**",$arr[0][9], $arr[0][10], $arr[0][11]);
+                    //$ee == 'PE5875' ? var_dump($dept, $arr) : '';
+                    //$ee == 'PE5875' ? var_dump(count($arr)) : '';
+                    //$ee == 'PE5875' ? var_dump("**",$arr[0][9], $arr[0][10], $arr[0][11]): '';
                     $hoursSum = array_sum(array_column($arr, 8));
                     $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], (string)$hoursSum, $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
                 }
@@ -279,6 +280,8 @@ if(isset($_FILES['file'])){
                         $line[7] = $job->getLaborRate();
                     } elseif ($description === "Fork Lift Op II") {
                         $line[7] = $job->getOperatorRate();
+                    }elseif ($description === "Landscaper"){
+                        $line[7] = $job->getLandscaperRate();
                     }
                 }
             }
