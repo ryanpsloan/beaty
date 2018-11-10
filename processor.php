@@ -101,9 +101,9 @@ if(isset($_FILES['file'])){
         $fileData = array();
         //read the data in line by line
         while (!feof($handle)) {
-            $line_of_data = fgetcsv($handle, 1000000, ",", '"'); //gets data from file one line at a time
-            $line_of_data = trim($line_of_data); //trims the data
-            $fileData[] = explode(",", $line_of_data); //breaks the line up into pieces that the array can store
+            /*$line_of_data*/ $fileData[] = fgetcsv($handle, 1000000, ",", '"'); //gets data from file one line at a time
+            //$line_of_data = trim($line_of_data); //trims the data
+            //$fileData[] = explode(",", $line_of_data); //breaks the line up into pieces that the array can store
         }
 
         //close file reading stream
