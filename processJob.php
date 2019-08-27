@@ -21,11 +21,23 @@ if(isset($_POST['submit'])) {
     $opM1 = $_POST['opM1'];
     $lsRate = $_POST['lsRate'];
     $lsMP = $_POST['lsMP'];
+    $blApp1Rate = $_POST['blApp1Rate'];
+    $blApp1MP = $_POST['blApp1MP'];
+    $blApp1M1 = $_POST['blApp1M1'];
+    $blApp2Rate = $_POST['blApp2Rate'];
+    $blApp2MP = $_POST['blApp2MP'];
+    $blApp2M1 = $_POST['blApp2M1'];
+    $blApp3Rate = $_POST['blApp3Rate'];
+    $blApp3MP = $_POST['blApp3MP'];
+    $blApp3M1 = $_POST['blApp3M1'];
+    $carpRate = $_POST['carpRate'];
+    $carpMP = $_POST['carpMP'];
+    $carpM1 = $_POST['carpM1'];
     $beneco = isset($_POST['beneco']) ? 1 : 0;
     $perdiem = isset($_POST['perdiem']) ? 1 : 0;
 
     try {
-        $newJob = new Job(null, $jobId, $desc, $blRate, $blMP, $blM1, $frRate, $frMP, $lbRate, $lbMP, $lbM1, $opRate, $opMP, $opM1, $beneco, $perdiem, $lsRate, $lsMP);
+        $newJob = new Job(null, $jobId, $desc, $blRate, $blMP, $blM1, $frRate, $frMP, $lbRate, $lbMP, $lbM1, $opRate, $opMP, $opM1, $beneco, $perdiem, $lsRate, $lsMP, $blApp1Rate, $blApp1MP, $blApp1M1, $blApp2Rate, $blApp2MP, $blApp2M1, $blApp3Rate, $blApp3MP, $blApp3M1, $carpRate, $carpMP, $carpM1);
         $newJob->insert($mysqli);
         $_SESSION['output'] = $jobId . " / ". $desc ." has been inserted";
     }catch(Exception $e){
@@ -51,6 +63,18 @@ else if(isset($_POST['submit1'])){
     $opM1 = $_POST['opM11'];
     $lsRate = $_POST['lsRate1'];
     $lsMP = $_POST['lsMP1'];
+    $blApp1Rate = $_POST['blApp1Rate1'];
+    $blApp1MP = $_POST['blApp1MP1'];
+    $blApp1M1 = $_POST['blApp1M11'];
+    $blApp2Rate = $_POST['blApp2Rate1'];
+    $blApp2MP = $_POST['blApp2MP1'];
+    $blApp2M1 = $_POST['blApp2M11'];
+    $blApp3Rate = $_POST['blApp3Rate1'];
+    $blApp3MP = $_POST['blApp3MP1'];
+    $blApp3M1 = $_POST['blApp3M11'];
+    $carpRate = $_POST['carpRate1'];
+    $carpMP = $_POST['carpMP1'];
+    $carpM1 = $_POST['carpM11'];
     $beneco = isset($_POST['beneco1']) ? 1 : 0;
     $perdiem = isset($_POST['perdiem1']) ? 1 : 0;
     try {
@@ -71,6 +95,18 @@ else if(isset($_POST['submit1'])){
         $job->setOperatorM1($opM1);
         $job->setLandscaperRate($lsRate);
         $job->setLandscaperMP($lsMP);
+        $job->setBricklayerApprenticeIRate($blApp1Rate);
+        $job->setBricklayerApprenticeIMP($blApp1MP);
+        $job->setBricklayerApprenticeIM1($blApp1M1);
+        $job->setBricklayerApprenticeIIRate($blApp2Rate);
+        $job->setBricklayerApprenticeIIMP($blApp2MP);
+        $job->setBricklayerApprenticeIIM1($blApp2M1);
+        $job->setBricklayerApprenticeIIIRate($blApp3Rate);
+        $job->setBricklayerApprenticeIIIMP($blApp3MP);
+        $job->setBricklayerApprenticeIIIM1($blApp3M1);
+        $job->setCarpenterRate($carpRate);
+        $job->setCarpenterMP($carpMP);
+        $job->setCarpenterM1($carpM1);
         $job->setBeneco($beneco);
         $job->setPerdiem($perdiem);
 

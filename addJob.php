@@ -39,6 +39,18 @@ session_start();
             var perdiem = $("input[id='perdiem1']");
             var lsRate = $("input[id='lsRate1']");
             var lsMP = $("input[id='lsMP1']");
+            var blApp1Rate = $("input[id='blApp1Rate1']");
+            var blApp1MP = $("input[id='blApp1MP1']");
+            var blApp1M1 =  $("input[id='blApp1M11']");
+            var blApp2Rate = $("input[id='blApp2Rate1']");
+            var blApp2MP = $("input[id='blApp2MP1']");
+            var blApp2M1 =  $("input[id='blApp2M11']");
+            var blApp3Rate = $("input[id='blApp3Rate1']");
+            var blApp3MP = $("input[id='blApp3MP1']");
+            var blApp3M1 =  $("input[id='blApp3M11']");
+            var carpRate = $("input[id='carpRate1']");
+            var carpMP = $("input[id='carpMP1']");
+            var carpM1 = $("input[id='carpM11']");
             /*console.log(id);
             console.log(jobId);
             console.log(jobDesc);
@@ -69,6 +81,18 @@ session_start();
                 var per = $(this).find(':selected').data('perdiem');
                 var landRate = $(this).find(':selected').data('lsrate');
                 var landMP = $(this).find(':selected').data('lsmp');
+                var blApp1RateData = $(this).find(':selected').data('blapp1rate');
+                var blApp1MPData = $(this).find(':selected').data('blapp1mp');
+                var blApp1M1Data = $(this).find(':selected').data('blapp1m1');
+                var blApp2RateData = $(this).find(':selected').data('blapp2rate');
+                var blApp2MPData = $(this).find(':selected').data('blapp2mp');
+                var blApp2M1Data = $(this).find(':selected').data('blapp2m1');
+                var blApp3RateData = $(this).find(':selected').data('blapp3rate');
+                var blApp3MPData = $(this).find(':selected').data('blapp3mp');
+                var blApp3M1Data = $(this).find(':selected').data('blapp3m1');
+                var carpRateData = $(this).find(':selected').data('carprate');
+                var carpMPData = $(this).find(':selected').data('carpmp');
+                var carpM1Data = $(this).find(':selected').data('carpm1');
                 /*console.log(data);
                 console.log(jId);
                 console.log(desc);
@@ -92,6 +116,18 @@ session_start();
                 opM1.val(oM1);
                 lsRate.val(landRate);
                 lsMP.val(landMP);
+                blApp1Rate.val(blApp1RateData);
+                blApp1MP.val(blApp1MPData);
+                blApp1M1.val(blApp1M1Data);
+                blApp2Rate.val(blApp2RateData);
+                blApp2MP.val(blApp2MPData);
+                blApp2M1.val(blApp2M1Data);
+                blApp3Rate.val(blApp3RateData);
+                blApp3MP.val(blApp3MPData);
+                blApp3M1.val(blApp3M1Data);
+                carpRate.val(carpRateData);
+                carpMP.val(carpMPData);
+                carpM1.val(carpM1Data);
                 //console.log(landRate);
                 //console.log(landMP);
                 if(ben === 1){
@@ -233,6 +269,42 @@ session_start();
                         <td><label for="lsMP">Landscaper MP</label></td><td><input type="text" id="lsMP" name="lsMP" required></td>
                     </tr>
                     <tr>
+                        <td><label for="blApp1Rate">Bricklayer Apprentice I Rate</label></td><td><input type="text" id="blApp1Rate" name="blApp1Rate" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp1MP">Bricklayer Apprentice I MP</label></td><td><input type="text" id="blApp1MP" name="blApp1MP" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp1M1">Bricklayer Apprentice I M1</label></td><td><input type="text" id="blApp1M1" name="blApp1M1" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp2Rate">Bricklayer Apprentice II Rate</label></td><td><input type="text" id="blApp2Rate" name="blApp2Rate" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp2MP">Bricklayer Apprentice II MP</label></td><td><input type="text" id="blApp2MP" name="blApp2MP" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp2M1">Bricklayer Apprentice II M1</label></td><td><input type="text" id="blApp2M1" name="blApp2M1" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp3Rate">Bricklayer Apprentice III Rate</label></td><td><input type="text" id="blApp3Rate" name="blApp3Rate" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp3MP">Bricklayer Apprentice III MP</label></td><td><input type="text" id="blApp3MP" name="blApp3MP" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp3M1">Bricklayer Apprentice III M1</label></td><td><input type="text" id="blApp3M1" name="blApp3M1" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="carpRate">Carpenter Rate</label></td><td><input type="text" id="carpRate" name="carpRate" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="carpMP">Carpenter MP</label></td><td><input type="text" id="carpMP" name="carpMP" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="carpM1">Carpenter M1</label></td><td><input type="text" id="carpM1" name="carpM1" required></td>
+                    </tr>
+                    <tr>
                         <td><label for="beneco">Beneco</label></td><td><input type="checkbox" id="beneco" name="beneco"></td>
                     </tr>
                     <tr>
@@ -273,10 +345,23 @@ session_start();
                                 $perdiem = $object->getPerdiem();
                                 $lsRate = $object->getLandscaperRate();
                                 $lsMP = $object->getLandscaperMP();
+                                $blApp1Rate = $object->getBricklayerApprenticeIRate();
+                                $blApp1MP = $object->getBricklayerApprenticeIMP();
+                                $blApp1M1 = $object->getBricklayerApprenticeIM1();
+                                $blApp2Rate = $object->getBricklayerApprenticeIIRate();
+                                $blApp2MP = $object->getBricklayerApprenticeIIMP();
+                                $blApp2M1 = $object->getBricklayerApprenticeIIM1();
+                                $blApp3Rate = $object->getBricklayerApprenticeIIIRate();
+                                $blApp3MP = $object->getBricklayerApprenticeIIIMP();
+                                $blApp3M1 = $object->getBricklayerApprenticeIIIM1();
+                                $carpRate = $object->getCarpenterRate();
+                                $carpMP = $object->getCarpenterMP();
+                                $carpM1= $object->getCarpenterM1();
+
                                 //var_dump($lsRate, $lsMP);
                                 echo <<<HTML
 
-                        <option data-id="$id" data-job="$jobId" data-desc="$jobDesc" data-blRate="$blRate" data-blMP="$blMP" data-blM1="$blM1" data-frRate="$frRate" data-frMP="$frMP" data-lbRate="$lbRate" data-lbMP="$lbMP" data-lbM1="$lbM1" data-opRate="$opRate" data-opMP="$opMP" data-opM1="$opM1" data-beneco="$beneco" data-perdiem="$perdiem" data-lsRate="$lsRate" data-lsMP="$lsMP" value="$jobId">$jobId / $jobDesc</option>
+                        <option data-id="$id" data-job="$jobId" data-desc="$jobDesc" data-blRate="$blRate" data-blMP="$blMP" data-blM1="$blM1" data-frRate="$frRate" data-frMP="$frMP" data-lbRate="$lbRate" data-lbMP="$lbMP" data-lbM1="$lbM1" data-opRate="$opRate" data-opMP="$opMP" data-opM1="$opM1" data-beneco="$beneco" data-perdiem="$perdiem" data-lsRate="$lsRate" data-lsMP="$lsMP" data-blApp1Rate="$blApp1Rate" data-blApp1MP="$blApp1MP" data-blApp1M1="$blApp1M1" data-blApp2Rate="$blApp2Rate" data-blApp2MP="$blApp2MP" data-blApp2M1="$blApp2M1" data-blApp3Rate="$blApp3Rate" data-blApp3MP="$blApp3MP" data-blApp3M1="$blApp3M1" data-carpRate="$carpRate" data-carpMP="$carpMP" data-carpM1="$carpM1" value="$jobId">$jobId / $jobDesc</option>
 
 HTML;
                             }
@@ -315,6 +400,26 @@ HTML;
                     <tr>
                         <td><label for="lsRate1">Landscaper Rate</label><input type="text" id="lsRate1" name="lsRate1" required></td>
                         <td><label for="lsMP1">Landscaper MP</label><input type="text" id="lsMP1" name="lsMP1" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp1Rate1">Bricklayer Apprentice I Rate</label><input type="text" id="blApp1Rate1" name="blApp1Rate1" required></td>
+                        <td><label for="blApp1MP1">Bricklayer Apprentice I MP</label><input type="text" id="blApp1MP1" name="blApp1MP1" required></td>
+                        <td><label for="blApp1M11">Bricklayer Apprentice I M1</label><input type="text" id="blApp1M11" name="blApp1M11" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp2Rate1">Bricklayer Apprentice II Rate</label><input type="text" id="blApp2Rate1" name="blApp2Rate1" required></td>
+                        <td><label for="blApp2MP1">Bricklayer Apprentice II MP</label><input type="text" id="blApp2MP1" name="blApp2MP1" required></td>
+                        <td><label for="blApp2M11">Bricklayer Apprentice II M1</label><input type="text" id="blApp2M11" name="blApp2M11" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="blApp3Rate1">Bricklayer Apprentice III Rate</label><input type="text" id="blApp3Rate1" name="blApp3Rate1" required></td>
+                        <td><label for="blApp3MP1">Bricklayer Apprentice III MP</label><input type="text" id="blApp3MP1" name="blApp3MP1" required></td>
+                        <td><label for="blApp3M11">Bricklayer Apprentice III M1</label><input type="text" id="blApp3M11" name="blApp3M11" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="carpRate1">Carpenter Rate</label><input type="text" id="carpRate1" name="carpRate1" required></td>
+                        <td><label for="carpMP1">Carpenter MP</label><input type="text" id="carpMP1" name="carpMP1" required></td>
+                        <td><label for="carpM11">Carpenter M1</label><input type="text" id="carpM11" name="carpM11" required></td>
                     </tr>
                     <tr>
                         <td><label for="beneco1">Beneco</label><input type="checkbox" id="beneco1" name="beneco1"></td>
@@ -367,7 +472,7 @@ HTML;
                 $mysqli = MysqliConfiguration::getMysqli();
                 $jobs = Job::getAllJobs($mysqli);
                 if($jobs !== null) {
-                    echo "<tr><td>Database Id</td><td>Job Id</td><td>Description</td><td>Bricklayer Rate</td><td>Bricklayer MP</td><td>Bricklayer M1</td><td>Foreman Rate</td><td>Foreman MP</td><td>Labor Rate</td><td>Labor MP</td><td>Labor M1</td><td>Operator Rate</td><td>Operator MP</td><td>Operator M1</td><td>Landscaper Rate</td><td>Landscaper MP</td><td>Beneco</td><td>Perdiem</td></tr>";
+                    echo "<tr><td>Database Id</td><td>Job Id</td><td>Description</td><td>Bricklayer Rate</td><td>Bricklayer MP</td><td>Bricklayer M1</td><td>Foreman Rate</td><td>Foreman MP</td><td>Labor Rate</td><td>Labor MP</td><td>Labor M1</td><td>Operator Rate</td><td>Operator MP</td><td>Operator M1</td><td>Landscaper Rate</td><td>Landscaper MP</td><td>Beneco</td><td>Perdiem</td><td>Bricklayer Apprentice I Rate</td><td>Bricklayer Apprentice I MP</td><td>Bricklayer Apprentice I M1</td><td>Bricklayer Apprentice II Rate</td><td>Bricklayer Apprentice II MP</td><td>Bricklayer Apprentice II M1</td><td>Bricklayer Apprentice III Rate</td><td>Bricklayer Apprentice III MP</td><td>Bricklayer Apprentice III M1</td><td>Carpenter Rate</td><td>Carpenter MP</td><td>Carpenter M1</td></tr>";
                     foreach ($jobs as $object) {
                         $id = $object->getId();
                         $jobId = $object->getJobId();
@@ -387,6 +492,18 @@ HTML;
                         $perdiem = $object->getPerdiem();
                         $lsRate = $object->getLandscaperRate();
                         $lsMP = $object->getLandscaperMP();
+                        $blApp1Rate = $object->getBricklayerApprenticeIRate();
+                        $blApp1MP = $object->getBricklayerApprenticeIMP();
+                        $blApp1M1 = $object->getBricklayerApprenticeIM1();
+                        $blApp2Rate = $object->getBricklayerApprenticeIIRate();
+                        $blApp2MP = $object->getBricklayerApprenticeIIMP();
+                        $blApp2M1 = $object->getBricklayerApprenticeIIM1();
+                        $blApp3Rate = $object->getBricklayerApprenticeIIIRate();
+                        $blApp3MP = $object->getBricklayerApprenticeIIIMP();
+                        $blApp3M1 = $object->getBricklayerApprenticeIIIM1();
+                        $carpRate = $object->getCarpenterRate();
+                        $carpMP = $object->getCarpenterMP();
+                        $carpM1= $object->getCarpenterM1();
                         if($beneco === 1){
                             $beneco = 'YES';
                         }else{
@@ -399,7 +516,7 @@ HTML;
                         }
                         echo <<<HTML
 
-                    <tr><td>$id</td><td>$jobId</td><td>$jobDesc</td><td>$blRate</td><td>$blMP</td><td>$blM1</td><td>$frRate</td><td>$frMP</td><td>$lbRate</td><td>$lbMP</td><td>$lbM1</td><td>$opRate</td><td>$opMP</td><td>$opM1</td><td>$lsRate</td><td>$lsMP</td><td>$beneco</td><td>$perdiem</td></tr>
+                    <tr><td>$id</td><td>$jobId</td><td>$jobDesc</td><td>$blRate</td><td>$blMP</td><td>$blM1</td><td>$frRate</td><td>$frMP</td><td>$lbRate</td><td>$lbMP</td><td>$lbM1</td><td>$opRate</td><td>$opMP</td><td>$opM1</td><td>$lsRate</td><td>$lsMP</td><td>$beneco</td><td>$perdiem</td><td>$blApp1Rate</td><td>$blApp1MP</td><td>$blApp1M1</td><td>$blApp2Rate</td><td>$blApp2MP</td><td>$blApp2M1</td><td>$blApp3Rate</td><td>$blApp3MP</td><td>$blApp3M1</td><td>$carpRate</td><td>$carpMP</td><td>$carpM1</td></tr>
 HTML;
 
                     }

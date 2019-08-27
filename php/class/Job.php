@@ -26,8 +26,20 @@ class Job
     private $perdiem;
     private $landscaperRate;
     private $landscaperMP;
+    private $bricklayerApprenticeIRate;
+    private $bricklayerApprenticeIMP;
+    private $bricklayerApprenticeIM1;
+    private $bricklayerApprenticeIIRate;
+    private $bricklayerApprenticeIIMP;
+    private $bricklayerApprenticeIIM1;
+    private $bricklayerApprenticeIIIRate;
+    private $bricklayerApprenticeIIIMP;
+    private $bricklayerApprenticeIIIM1;
+    private $carpenterRate;
+    private $carpenterMP;
+    private $carpenterM1;
 
-    public function __construct($newId, $newJobId, $newDesc, $newBLRate, $newBLMP, $newBLM1, $newFMRate, $newFMMP, $newLaborRate, $newLaborMP, $newLaborM1, $newOPRate, $newOPMP, $newOPM1, $newBeneco, $newPerdiem, $newLandscaperRate, $newLandscaperMP)
+    public function __construct($newId, $newJobId, $newDesc, $newBLRate, $newBLMP, $newBLM1, $newFMRate, $newFMMP, $newLaborRate, $newLaborMP, $newLaborM1, $newOPRate, $newOPMP, $newOPM1, $newBeneco, $newPerdiem, $newLandscaperRate, $newLandscaperMP, $newBLAppIRate, $newBLAppIMP, $newBLAppIM1, $newBLAppIIRate, $newBLAppIIMP,$newBLAppIIM1, $newBLAppIIIRate, $newBLAppIIIMP, $newBLAppIIIM1, $newCarpenterRate, $newCarpenterMP, $newCarpenterM1)
     {
         try{
             $this->setId($newId);
@@ -48,6 +60,18 @@ class Job
             $this->setPerdiem($newPerdiem);
             $this->setLandscaperRate($newLandscaperRate);
             $this->setLandscaperMP($newLandscaperMP);
+            $this->setBricklayerApprenticeIRate($newBLAppIRate);
+            $this->setBricklayerApprenticeIMP($newBLAppIMP);
+            $this->setBricklayerApprenticeIM1($newBLAppIM1);
+            $this->setBricklayerApprenticeIIRate($newBLAppIIRate);
+            $this->setBricklayerApprenticeIIMP($newBLAppIIMP);
+            $this->setBricklayerApprenticeIIM1($newBLAppIIM1);
+            $this->setBricklayerApprenticeIIIRate($newBLAppIIIRate);
+            $this->setBricklayerApprenticeIIIMP($newBLAppIIIMP);
+            $this->setBricklayerApprenticeIIIM1($newBLAppIIIM1);
+            $this->setCarpenterRate($newCarpenterRate);
+            $this->setCarpenterMP($newCarpenterMP);
+            $this->setCarpenterM1($newCarpenterM1);
 
         }catch(UnexpectedValueException $unexpectedValue){
             throw(new UnexpectedValueException($unexpectedValue->getMessage(). ": Unable to Construct Job", 0, $unexpectedValue));
@@ -145,6 +169,66 @@ class Job
     public function getLandscaperMP()
     {
         return $this->landscaperMP;
+    }
+
+    public function getBricklayerApprenticeIRate()
+    {
+        return $this->bricklayerApprenticeIRate;
+    }
+
+    public function getBricklayerApprenticeIMP()
+    {
+        return $this->bricklayerApprenticeIMP;
+    }
+
+    public function getBricklayerApprenticeIM1()
+    {
+        return $this->bricklayerApprenticeIM1;
+    }
+
+    public function getBricklayerApprenticeIIRate()
+    {
+        return $this->bricklayerApprenticeIIRate;
+    }
+
+    public function getBricklayerApprenticeIIMP()
+    {
+        return $this->bricklayerApprenticeIIMP;
+    }
+
+    public function getBricklayerApprenticeIIM1()
+    {
+        return $this->bricklayerApprenticeIIM1;
+    }
+
+    public function getBricklayerApprenticeIIIRate()
+    {
+        return $this->bricklayerApprenticeIIIRate;
+    }
+
+    public function getBricklayerApprenticeIIIMP()
+    {
+        return $this->bricklayerApprenticeIIIMP;
+    }
+
+    public function getBricklayerApprenticeIIIM1()
+    {
+        return $this->bricklayerApprenticeIIIM1;
+    }
+
+    public function getCarpenterRate()
+    {
+        return $this->carpenterRate;
+    }
+
+    public function getCarpenterMP()
+    {
+        return $this->carpenterMP;
+    }
+
+    public function getCarpenterM1()
+    {
+        return $this->carpenterM1;
     }
 
     public function setId($id)
@@ -333,6 +417,126 @@ class Job
         $this->landscaperMP = $landscaperMP;
     }
 
+    public function setBricklayerApprenticeIRate($bricklayerApprenticeIRate)
+    {
+        $bricklayerApprenticeIRate = trim($bricklayerApprenticeIRate);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIRate, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice I Rate $bricklayerApprenticeIRate must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIRate = $bricklayerApprenticeIRate;
+    }
+
+    public function setBricklayerApprenticeIMP($bricklayerApprenticeIMP)
+    {
+        $bricklayerApprenticeIMP = trim($bricklayerApprenticeIMP);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIMP, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice I MP $bricklayerApprenticeIMP must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIMP = $bricklayerApprenticeIMP;
+    }
+
+    public function setBricklayerApprenticeIM1($bricklayerApprenticeIM1)
+    {
+        $bricklayerApprenticeIM1 = trim($bricklayerApprenticeIM1);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIM1, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice I M1 $bricklayerApprenticeIM1 must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIM1 = $bricklayerApprenticeIM1;
+    }
+
+    public function setBricklayerApprenticeIIRate($bricklayerApprenticeIIRate)
+    {
+        $bricklayerApprenticeIIRate = trim($bricklayerApprenticeIIRate);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIIRate, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice II Rate $bricklayerApprenticeIIRate must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIIRate = $bricklayerApprenticeIIRate;
+    }
+
+    public function setBricklayerApprenticeIIMP($bricklayerApprenticeIIMP)
+    {
+        $bricklayerApprenticeIIMP = trim($bricklayerApprenticeIIMP);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIIMP, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice II MP $bricklayerApprenticeIIMP must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIIMP = $bricklayerApprenticeIIMP;
+    }
+
+    public function setBricklayerApprenticeIIM1($bricklayerApprenticeIIM1)
+    {
+        $bricklayerApprenticeIIM1 = trim($bricklayerApprenticeIIM1);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIIM1, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice II M1 $bricklayerApprenticeIIM1 must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIIM1 = $bricklayerApprenticeIIM1;
+    }
+
+    public function setBricklayerApprenticeIIIRate($bricklayerApprenticeIIIRate)
+    {
+        $bricklayerApprenticeIIIRate = trim($bricklayerApprenticeIIIRate);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIIIRate, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice III Rate $bricklayerApprenticeIIIRate must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIIIRate = $bricklayerApprenticeIIIRate;
+    }
+
+    public function setBricklayerApprenticeIIIMP($bricklayerApprenticeIIIMP)
+    {
+        $bricklayerApprenticeIIIMP = trim($bricklayerApprenticeIIIMP);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIIIMP, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice III MP $bricklayerApprenticeIIIMP must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIIIMP = $bricklayerApprenticeIIIMP;
+    }
+
+    public function setBricklayerApprenticeIIIM1($bricklayerApprenticeIIIM1)
+    {
+        $bricklayerApprenticeIIIM1 = trim($bricklayerApprenticeIIIM1);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($bricklayerApprenticeIIIM1, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Bricklayer Apprentice III M1 $bricklayerApprenticeIIIM1 must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->bricklayerApprenticeIIIM1 = $bricklayerApprenticeIIIM1;
+    }
+
+    public function setCarpenterRate($carpenterRate)
+    {
+        $carpenterRate = trim($carpenterRate);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($carpenterRate, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Carpenter Rate $carpenterRate must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->carpenterRate = $carpenterRate;
+    }
+
+    public function setCarpenterMP($carpenterMP)
+    {
+        $carpenterMP = trim($carpenterMP);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($carpenterMP, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Carpenter MP $carpenterMP must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->carpenterMP = $carpenterMP;
+    }
+
+    public function setCarpenterM1($carpenterM1)
+    {
+        $carpenterM1 = trim($carpenterM1);
+        $filterOptions = array("options" => array("regexp" => "/^[0-9]+[.][0-9]+$/"));
+        if(filter_var($carpenterM1, FILTER_VALIDATE_REGEXP, $filterOptions) === false){
+            throw(new RangeException("Carpenter M1 $carpenterM1 must be formatted as 0.000 or 00.000 using only numbers"));
+        }
+        $this->carpenterM1 = $carpenterM1;
+    }
+
     public function insert(&$mysqli){
         if(gettype($mysqli) !== "object" || get_class($mysqli) !== "mysqli"){
             throw(new mysqli_sql_exception("input is not a mysqli object"));
@@ -342,13 +546,13 @@ class Job
             throw(new mysqli_sql_exception("not a new Job"));
         }
 
-        $query = "INSERT INTO job(jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO job(jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP, bricklayerApprenticeIRate, bricklayerApprenticeIMP, bricklayerApprenticeIM1, bricklayerApprenticeIIRate, bricklayerApprenticeIIMP, bricklayerApprenticeIIM1, bricklayerApprenticeIIIRate, bricklayerApprenticeIIIMP, bricklayerApprenticeIIIM1, carpenterRate, carpenterMP, carpenterM1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
 
-        $wasClean = $statement->bind_param("sssssssssssssiiss",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->landscaperRate, $this->landscaperMP);
+        $wasClean = $statement->bind_param("sssssssssssssiissssssssssssss",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->landscaperRate, $this->landscaperMP, $this->bricklayerApprenticeIRate, $this->bricklayerApprenticeIMP, $this->bricklayerApprenticeIM1, $this->bricklayerApprenticeIIRate, $this->bricklayerApprenticeIIMP, $this->bricklayerApprenticeIIM1, $this->bricklayerApprenticeIIIRate, $this->bricklayerApprenticeIIIMP, $this->bricklayerApprenticeIIIM1, $this->carpenterRate, $this->carpenterMP, $this->carpenterM1);
         if($wasClean === false){
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
@@ -394,13 +598,13 @@ class Job
             throw(new mysqli_sql_exception("Unable to update a Job that does not exist"));
         }
 
-        $query = "UPDATE job SET jobId = ?, description = ?, bricklayerRate = ?, bricklayerMP = ?, bricklayerM1 = ?, foremanRate = ?, foremanMP = ?, laborRate = ?, laborMP = ?, laborM1 = ?, operatorRate = ?, operatorMP = ?, operatorM1 = ?, beneco = ?, perdiem = ?, landscaperRate = ?, landscaperMP = ? WHERE id = ?";
+        $query = "UPDATE job SET jobId = ?, description = ?, bricklayerRate = ?, bricklayerMP = ?, bricklayerM1 = ?, foremanRate = ?, foremanMP = ?, laborRate = ?, laborMP = ?, laborM1 = ?, operatorRate = ?, operatorMP = ?, operatorM1 = ?, beneco = ?, perdiem = ?, landscaperRate = ?, landscaperMP = ?, bricklayerApprenticeIRate = ?, bricklayerApprenticeIMP = ?, bricklayerApprenticeIM1 = ?, bricklayerApprenticeIIRate = ?, bricklayerApprenticeIIMP = ?, bricklayerApprenticeIIM1 = ?, bricklayerApprenticeIIIRate = ?, bricklayerApprenticeIIIMP = ?, bricklayerApprenticeIIIM1 = ?, carpenterRate = ?, carpenterMP = ?, carpenterM1 = ? WHERE id = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
         }
 
-        $wasClean = $statement->bind_param("sssssssssssssiissi",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->landscaperRate, $this->landscaperMP, $this->id);
+        $wasClean = $statement->bind_param("sssssssssssssiissssssssssssssi",$this->jobId, $this->description, $this->bricklayerRate, $this->bricklayerMP, $this->bricklayerM1, $this->foremanRate, $this->foremanMP, $this->laborRate, $this->laborMP, $this->laborM1, $this->operatorRate, $this->operatorMP, $this->operatorM1, $this->beneco, $this->perdiem, $this->landscaperRate, $this->landscaperMP, $this->bricklayerApprenticeIRate, $this->bricklayerApprenticeIMP, $this->bricklayerApprenticeIM1, $this->bricklayerApprenticeIIRate, $this->bricklayerApprenticeIIMP, $this->bricklayerApprenticeIIM1, $this->bricklayerApprenticeIIIRate, $this->bricklayerApprenticeIIIMP, $this->bricklayerApprenticeIIIM1, $this->carpenterRate, $this->carpenterMP, $this->carpenterM1, $this->id);
         if($wasClean === false){
             throw(new mysqli_sql_exception("Unable to bind parameters"));
         }
@@ -418,7 +622,7 @@ class Job
         $jobId = trim($jobId);
         $jobId = filter_var($jobId, FILTER_SANITIZE_STRING);
 
-        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP FROM job WHERE jobId = ?";
+        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP, bricklayerApprenticeIRate, bricklayerApprenticeIMP, bricklayerApprenticeIM1, bricklayerApprenticeIIRate, bricklayerApprenticeIIMP, bricklayerApprenticeIIM1, bricklayerApprenticeIIIRate, bricklayerApprenticeIIIMP, bricklayerApprenticeIIIM1, carpenterRate, carpenterMP, carpenterM1 FROM job WHERE jobId = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -441,7 +645,7 @@ class Job
         $row = $result->fetch_assoc();
         if($row !== null){
             try{
-                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"]);
+                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"], $row["bricklayerApprenticeIRate"], $row["bricklayerApprenticeIMP"], $row["bricklayerApprenticeIM1"], $row["bricklayerApprenticeIIRate"], $row["bricklayerApprenticeIIMP"], $row["bricklayerApprenticeIIM1"], $row["bricklayerApprenticeIIIRate"], $row["bricklayerApprenticeIIIMP"], $row["bricklayerApprenticeIIIM1"], $row["carpenterRate"], $row["carpenterMP"], $row["carpenterM1"]);
             }catch(Exception $ex){
                 throw(new mysqli_sql_exception("Unable to convert row to Job", 0, $ex));
             }
@@ -468,7 +672,7 @@ class Job
             throw(new RangeException("Id $id is not positive"));
         }
 
-        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP FROM job WHERE id = ?";
+        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP, bricklayerApprenticeIRate, bricklayerApprenticeIMP, bricklayerApprenticeIM1, bricklayerApprenticeIIRate, bricklayerApprenticeIIMP, bricklayerApprenticeIIM1, bricklayerApprenticeIIIRate, bricklayerApprenticeIIIMP, bricklayerApprenticeIIIM1, carpenterRate, carpenterMP, carpenterM1 FROM job WHERE id = ?";
         $statement = $mysqli->prepare($query);
         if($statement === false) {
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -491,7 +695,7 @@ class Job
         $row = $result->fetch_assoc();
         if($row !== null){
             try{
-                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"]);
+                $job = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"], $row["bricklayerApprenticeIRate"], $row["bricklayerApprenticeIMP"], $row["bricklayerApprenticeIM1"], $row["bricklayerApprenticeIIRate"], $row["bricklayerApprenticeIIMP"], $row["bricklayerApprenticeIIM1"], $row["bricklayerApprenticeIIIRate"], $row["bricklayerApprenticeIIIMP"], $row["bricklayerApprenticeIIIM1"], $row["carpenterRate"], $row["carpenterMP"], $row["carpenterM1"]);
             }catch(Exception $ex){
                 throw(new mysqli_sql_exception("Unable to convert row to Job", 0, $ex));
             }
@@ -509,7 +713,7 @@ class Job
             throw(new mysqli_sql_exception("Input is not a valid mysqli object"));
         }
 
-        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP FROM job ORDER BY jobId ASC";
+        $query = "SELECT id, jobId, description, bricklayerRate, bricklayerMP, bricklayerM1, foremanRate, foremanMP, laborRate, laborMP, laborM1, operatorRate, operatorMP, operatorM1, beneco, perdiem, landscaperRate, landscaperMP, bricklayerApprenticeIRate, bricklayerApprenticeIMP, bricklayerApprenticeIM1, bricklayerApprenticeIIRate, bricklayerApprenticeIIMP, bricklayerApprenticeIIM1, bricklayerApprenticeIIIRate, bricklayerApprenticeIIIMP, bricklayerApprenticeIIIM1, carpenterRate, carpenterMP, carpenterM1 FROM job ORDER BY jobId ASC";
         $statement = $mysqli->prepare($query);
         if($statement === false){
             throw(new mysqli_sql_exception("Unable to prepare statement"));
@@ -529,7 +733,7 @@ class Job
         while(($row = $result->fetch_assoc()) !== null){
 
             try{
-                $jobArray[] = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"]);
+                $jobArray[] = new Job($row["id"], $row["jobId"], $row["description"], $row["bricklayerRate"], $row["bricklayerMP"], $row["bricklayerM1"], $row["foremanRate"], $row["foremanMP"], $row["laborRate"], $row["laborMP"], $row["laborM1"], $row["operatorRate"], $row["operatorMP"], $row["operatorM1"], $row["beneco"], $row["perdiem"], $row["landscaperRate"], $row["landscaperMP"], $row["bricklayerApprenticeIRate"], $row["bricklayerApprenticeIMP"], $row["bricklayerApprenticeIM1"], $row["bricklayerApprenticeIIRate"], $row["bricklayerApprenticeIIMP"], $row["bricklayerApprenticeIIM1"], $row["bricklayerApprenticeIIIRate"], $row["bricklayerApprenticeIIIMP"], $row["bricklayerApprenticeIIIM1"], $row["carpenterRate"], $row["carpenterMP"], $row["carpenterM1"]);
             }catch(Exception $exception){
                 throw(new mysqli_sql_exception("Unable to convert row to Job Object", 0, $exception));
             }

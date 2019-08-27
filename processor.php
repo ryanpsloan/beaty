@@ -125,12 +125,12 @@ if(isset($_FILES['file'])){
                         $isLine = false;
                         $rate = '';
 
-                        switch($description) {
-                            case 'Bricklayer':
+                        switch(strtoupper($description)) {
+                            case 'BRICKLAYER':
                                 $rate = $job->getBricklayerMP();
                                 $isLine = true;
                                 break;
-                            case 'Foreman':
+                            case 'FOREMAN':
                                 $rate = $job->getForemanMP();
                                 $isLine = true;
                                 break;
@@ -138,12 +138,29 @@ if(isset($_FILES['file'])){
                                 $rate = $job->getLaborMP();
                                 $isLine = true;
                                 break;
-                            case 'Fork Lift Op II':
+                            case 'FORK LIFT OP II':
                                 $rate = $job->getOperatorMP();
                                 $isLine = true;
                                 break;
-                            case 'Landscaper':
+                            case 'LANDSCAPER':
                                 $rate = $job->getLandscaperMP();
+                                $isLine = true;
+                                break;
+                            case 'BRICKLAYER APPRENTICE I':
+                                $rate = $job->getBricklayerApprenticeIMP();
+                                $isLine = true;
+                                break;
+                            case 'BRICKLAYER APPRENTICE II':
+                                $rate = $job->getBricklayerApprenticeIIMP();
+                                $isLine = true;
+                                break;
+                            case 'BRICKLAYER APPRENTICE III':
+                                $rate = $job->getBricklayerApprenticeIIIMP();
+                                $isLine = true;
+                                break;
+                            //Carpenter
+                            case 'L':
+                                $rate = $job->getCarpenterMP();
                                 $isLine = true;
                                 break;
                             default:
@@ -155,12 +172,12 @@ if(isset($_FILES['file'])){
                         $isLine = false;
                         $rate = '';
 
-                        switch($description) {
-                            case 'Bricklayer':
+                        switch(strtoupper($description)) {
+                            case 'BRICKLAYER':
                                 $rate = $job->getBricklayerMP();
                                 $isLine = true;
                                 break;
-                            case 'Foreman':
+                            case 'FOREMAN':
                                 $rate = $job->getForemanMP();
                                 $isLine = true;
                                 break;
@@ -168,8 +185,25 @@ if(isset($_FILES['file'])){
                                 $rate = $job->getLaborMP();
                                 $isLine = true;
                                 break;
-                            case 'Fork Lift Op II':
+                            case 'FORK LIFT OP II':
                                 $rate = $job->getOperatorMP();
+                                $isLine = true;
+                                break;
+                            case 'BRICKLAYER APPRENTICE I':
+                                $rate = $job->getBricklayerApprenticeIMP();
+                                $isLine = true;
+                                break;
+                            case 'BRICKLAYER APPRENTICE II':
+                                $rate = $job->getBricklayerApprenticeIIMP();
+                                $isLine = true;
+                                break;
+                            case 'BRICKLAYER APPRENTICE III':
+                                $rate = $job->getBricklayerApprenticeIIIMP();
+                                $isLine = true;
+                                break;
+                            //Carpenter
+                            case 'L':
+                                $rate = $job->getCarpenterMP();
                                 $isLine = true;
                                 break;
                             default:
@@ -198,8 +232,8 @@ if(isset($_FILES['file'])){
                 if($job !== null){
                     $isLine = false;
                     $rate = '';
-                    switch($description) {
-                        case 'Bricklayer':
+                    switch(strtoupper($description)) {
+                        case 'BRICKLAYER':
                             $rate = $job->getBricklayerM1();
                             $isLine = true;
                             break;
@@ -207,8 +241,25 @@ if(isset($_FILES['file'])){
                             $rate = $job->getLaborM1();
                             $isLine = true;
                             break;
-                        case 'Fork Lift Op II':
+                        case 'FORK LIFT OP II':
                             $rate = $job->getOperatorM1();
+                            $isLine = true;
+                            break;
+                        case 'BRICKLAYER APPRENTICE I':
+                            $rate = $job->getBricklayerApprenticeIM1();
+                            $isLine = true;
+                            break;
+                        case 'BRICKLAYER APPRENTICE II':
+                            $rate = $job->getBricklayerApprenticeIIM1();
+                            $isLine = true;
+                            break;
+                        case 'BRICKLAYER APPRENTICE III':
+                            $rate = $job->getBricklayerApprenticeIIIM1();
+                            $isLine = true;
+                            break;
+                        //Carpenter
+                        case 'L':
+                            $rate = $job->getCarpenterM1();
                             $isLine = true;
                             break;
                         default:
@@ -268,18 +319,26 @@ if(isset($_FILES['file'])){
            if(count($line) === 29) {
                 $jobId = trim($line[3]);
                 $job = Job::getJobByJobId($mysqli, $jobId);
-                $description = trim($line[28]);
+                $description = strtoupper(trim($line[28]));
                 if($job !== null){
-                    if($description === "Bricklayer") {
+                    if($description === "BRICKLAYER") {
                         $line[7] = $job->getBricklayerRate();
-                    } elseif ($description === "Foreman") {
+                    } elseif ($description === "FOREMAN") {
                         $line[7] = $job->getForemanRate();
                     } elseif ($description === "LB III") {
                         $line[7] = $job->getLaborRate();
-                    } elseif ($description === "Fork Lift Op II") {
+                    } elseif ($description === "FORK LIFT OP II") {
                         $line[7] = $job->getOperatorRate();
-                    }elseif ($description === "Landscaper"){
+                    } elseif ($description === "LANDSCAPER"){
                         $line[7] = $job->getLandscaperRate();
+                    } elseif($description === "BRICKLAYER APPRENTICE I"){
+                        $line[7] = $job->getBricklayerApprenticeIRate();
+                    } elseif($description === "BRICKLAYER APPRENTICE II"){
+                        $line[7] = $job->getBricklayerApprenticeIIRate();
+                    } elseif($description === "BRICKLAYER APPRENTICE III") {
+                        $line[7] = $job->getBricklayerApprenticeIIIRate();
+                    } elseif($description === "L"){
+                        $line[7] = $job->getCarpenterRate();
                     }
                 }
             }
