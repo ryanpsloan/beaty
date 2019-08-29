@@ -165,7 +165,7 @@ if(isset($_FILES['file'])){
                                 break;
                             default:
                         }
-                        if($isLine) {
+                        if($isLine && $rate !== '0.00' && $rate != '') {
                             $benecoArr[$line[0]][$jobId][$dept][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', 'P', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                         }
                     }elseif($perdiem){
@@ -208,7 +208,7 @@ if(isset($_FILES['file'])){
                                 break;
                             default:
                         }
-                        if($isLine) {
+                        if($isLine && $rate !== '0.00' && $rate != '') {
                             $rate = (float)$rate;
                             $hours = (float)$line[8];
                             $amount = $rate * $hours;
@@ -228,7 +228,13 @@ if(isset($_FILES['file'])){
                 $jobId = trim($line[3]);
                 $job = Job::getJobByJobId($mysqli, $jobId);
                 $description = trim($line[28]);
-
+                /*if($line[0] == 'BA7844'){
+                    var_dump($line);
+                    var_dump($job);
+                    var_dump($jobId);
+                    var_dump($description);
+                    var_dump(strtoupper($description));
+                }*/
                 if($job !== null){
                     $isLine = false;
                     $rate = '';
@@ -264,7 +270,7 @@ if(isset($_FILES['file'])){
                             break;
                         default:
                     }
-                    if($isLine && $rate !== '0.00') {
+                    if($isLine && $rate !== '0.00' && $rate != '') {
                         $apprenticeArr[$line[0]][$jobId][] = array($line[0], $line[1], $line[2], $jobId, $line[4], 'M', '1', $rate, $line[8], $line[9], $line[10], $line[11], $line[12], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', $line[28]);
                     }
                 }
@@ -295,7 +301,7 @@ if(isset($_FILES['file'])){
             foreach ($array as $jobId => $a) {
                 //var_dump($jobId);
                 foreach($a as $dept => $arr){
-                    //var_dump($dept, $arr);
+                    //git svar_dump($dept, $arr);
                     $amountSum = array_sum(array_column($arr, 14));
                     $output[] = array($arr[0][0], $arr[0][1], $arr[0][2], $arr[0][3], $arr[0][4], $arr[0][5], $arr[0][6], $arr[0][7], $arr[0][8], $arr[count($arr) - 1][9], $arr[count($arr) - 1][10], $arr[count($arr) - 1][11], '', '', (string)$amountSum, '', '', '', '', '', '', '', '', '', '', '', '', '', $arr[0][28]);
                 }
