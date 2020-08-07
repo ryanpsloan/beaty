@@ -138,6 +138,10 @@ if(isset($_FILES['file'])){
                                 $rate = $job->getLaborMP();
                                 $isLine = true;
                                 break;
+                            case 'LB II':
+                                $rate = $job->getLaborMP();
+                                $isLine = true;
+                                break;
                             case 'FORK LIFT OP II':
                                 $rate = $job->getOperatorMP();
                                 $isLine = true;
@@ -171,6 +175,13 @@ if(isset($_FILES['file'])){
                     }elseif($perdiem){
                         $isLine = false;
                         $rate = '';
+                        /*if($line[0] == 'TA1106'){
+                            var_dump($line);
+                            var_dump($job);
+                            var_dump($jobId);
+                            var_dump($description);
+                            var_dump(strtoupper($description));
+                        }*/
 
                         switch(strtoupper($description)) {
                             case 'BRICKLAYER':
@@ -182,6 +193,10 @@ if(isset($_FILES['file'])){
                                 $isLine = true;
                                 break;
                             case 'LB III':
+                                $rate = $job->getLaborMP();
+                                $isLine = true;
+                                break;
+                            case 'LB II':
                                 $rate = $job->getLaborMP();
                                 $isLine = true;
                                 break;
@@ -228,7 +243,7 @@ if(isset($_FILES['file'])){
                 $jobId = trim($line[3]);
                 $job = Job::getJobByJobId($mysqli, $jobId);
                 $description = trim($line[28]);
-                /*if($line[0] == 'BA7844'){
+                /*if($line[0] == 'TA1106'){
                     var_dump($line);
                     var_dump($job);
                     var_dump($jobId);
@@ -244,6 +259,10 @@ if(isset($_FILES['file'])){
                             $isLine = true;
                             break;
                         case 'LB III':
+                            $rate = $job->getLaborM1();
+                            $isLine = true;
+                            break;
+                        case 'LB II':
                             $rate = $job->getLaborM1();
                             $isLine = true;
                             break;
