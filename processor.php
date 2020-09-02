@@ -352,6 +352,8 @@ if(isset($_FILES['file'])){
                         $line[7] = $job->getForemanRate();
                     } elseif ($description === "LB III") {
                         $line[7] = $job->getLaborRate();
+                    } elseif ($description === "LB II") {
+                        $line[7] = $job->getLaborRate();
                     } elseif ($description === "FORK LIFT OP II") {
                         $line[7] = $job->getOperatorRate();
                     } elseif ($description === "LANDSCAPER"){
