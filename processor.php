@@ -125,7 +125,7 @@ if(isset($_FILES['file'])){
                         $isLine = false;
                         $rate = '';
 
-                        switch(strtoupper($description)) {
+                        switch(trim(strtoupper($description))) {
                             case 'BRICKLAYER':
                                 $rate = $job->getBricklayerMP();
                                 $isLine = true;
@@ -183,7 +183,7 @@ if(isset($_FILES['file'])){
                             var_dump(strtoupper($description));
                         }*/
 
-                        switch(strtoupper($description)) {
+                        switch(trim(strtoupper($description))) {
                             case 'BRICKLAYER':
                                 $rate = $job->getBricklayerMP();
                                 $isLine = true;
@@ -253,7 +253,7 @@ if(isset($_FILES['file'])){
                 if($job !== null){
                     $isLine = false;
                     $rate = '';
-                    switch(strtoupper($description)) {
+                    switch(trim(strtoupper($description))) {
                         case 'BRICKLAYER':
                             $rate = $job->getBricklayerM1();
                             $isLine = true;
